@@ -498,8 +498,8 @@ document.addEventListener('DOMContentLoaded', function() {
             message += `${userMessage.value.trim()}\n\n`;
         }
         
-        message += `*⏰ HORARIO DE ENTREGA:*\n`;
-        message += `Lo antes posible\n\n`;
+        // message += `*⏰ HORARIO DE ENTREGA:*\n`;
+        // message += `Lo antes posible\n\n`;
         message += `*📞 MIS DATOS DE CONTACTO:*\n`;
         message += `(Favor de contactarme para confirmar pedido y forma de pago)`;
         
