@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let userLocation = null;
     let selectedPizzas = []; // Array para almacenar pizzas seleccionadas
-    const phoneNumber = '525555123456'; // Número de WhatsApp de la pizzería
+    const phoneNumber = '524427128200'; // Número de WhatsApp de la pizzería
     
     // Menú de pizzas
     const pizzaMenu = [
