@@ -701,47 +701,93 @@
     }
 }
 
-        /* Pizza Selection */
-        .pizza-options {
-            margin: 1rem 0;
-        }
+        /* Pizza Selection - MODIFICADO PARA MÚLTIPLES SELECCIONES */
+.pizza-options {
+    margin: 1rem 0;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+}
 
-        .pizza-option {
-            padding: 0.8rem;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-bottom: 0.5rem;
-            background: white;
-        }
+.pizza-option {
+    padding: 0.8rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-bottom: 0.5rem;
+    background: white;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
 
-        .pizza-option:hover {
-            border-color: var(--primary-color);
-            background-color: #fff5f5;
-        }
+.pizza-option:hover {
+    border-color: var(--primary-color);
+    background-color: #fff5f5;
+}
 
-        .pizza-option.selected {
-            border-color: var(--primary-color);
-            background-color: #ffeaea;
-        }
+.pizza-option.selected {
+    border-color: var(--primary-color);
+    background-color: #ffeaea;
+}
 
-        .pizza-name {
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 0.3rem;
-        }
+.pizza-name {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.3rem;
+    flex: 1;
+    min-width: 200px;
+}
 
-        .pizza-desc {
-            font-size: 0.9rem;
-            color: #666;
-        }
+.pizza-desc {
+    font-size: 0.9rem;
+    color: #666;
+    flex-basis: 100%;
+    margin-top: 5px;
+}
 
-        .pizza-price {
-            float: right;
-            color: var(--secondary-color);
-            font-weight: 700;
-        }
+.pizza-price {
+    color: var(--secondary-color);
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+.pizza-quantity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 15px;
+}
+
+.quantity-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-color);
+    background: white;
+    color: var(--primary-color);
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.quantity-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.quantity-value {
+    min-width: 30px;
+    text-align: center;
+    font-weight: bold;
+}
 
         /* Estilos para APK/APP */
         .app-mode .whatsapp-btn {
@@ -1138,15 +1184,21 @@
         <i class="fab fa-whatsapp"></i>
     </div>
 
-    <!-- Modal para pedido de pizza - VERSIÓN MEJORADA -->
+    <!-- Modal para pedido de pizza - VERSIÓN MÚLTIPLES PIZZAS -->
 <div id="pizzaModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
     <div class="modal-content">
         <button class="close-modal" aria-label="Cerrar modal">&times;</button>
         <h3 id="modalTitle">🍕 Pedir Pizza por WhatsApp</h3>
         
         <div class="pizza-options">
-            <h4>Selecciona tu pizza:</h4>
+            <h4>Selecciona tus pizzas (puedes elegir varias):</h4>
             <!-- Las opciones se generan dinámicamente con JavaScript -->
+        </div>
+        
+        <div id="orderSummary" style="margin: 1rem 0; padding: 1rem; background: #f5f5f5; border-radius: 8px; display: none;">
+            <h4>📋 Resumen del Pedido:</h4>
+            <div id="selectedPizzasList"></div>
+            <div id="totalPrice" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #ccc; font-weight: bold; font-size: 1.2rem;"></div>
         </div>
         
         <div class="location-section">
@@ -1163,19 +1215,18 @@
             <textarea id="userMessage" placeholder="Ejemplo: Sin cebolla, bien cocida, cortada en 8 porciones..."></textarea>
         </div>
         
-        <div id="orderSummary" style="margin: 1rem 0; padding: 1rem; background: #f5f5f5; border-radius: 8px; display: none;">
-            <h4>Resumen del Pedido:</h4>
-            <p id="selectedPizzaText"></p>
-            <p id="selectedPriceText"></p>
-        </div>
-        
         <button id="sendWhatsApp" class="btn-send" disabled>
-            📤 Enviar Pedido por WhatsApp
+            📤 Enviar Pedido por WhatsApp ( <span id="itemCount">0</span> items )
         </button>
         
         <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #eee; font-size: 0.9rem; color: #666;">
-            <p><strong>Nota:</strong> El botón de enviar se activará cuando selecciones una pizza y obtengamos tu ubicación.</p>
-            <p>Tu pedido será enviado por WhatsApp para que confirmemos disponibilidad y forma de pago.</p>
+            <p><strong>💡 Instrucciones:</strong></p>
+            <ul style="padding-left: 20px; margin-top: 5px;">
+                <li>Haz clic en cualquier pizza para seleccionarla</li>
+                <li>Usa los botones + y - para ajustar la cantidad</li>
+                <li>Puedes seleccionar varias pizzas diferentes</li>
+                <li>El botón de enviar se activará cuando tengas al menos 1 pizza y ubicación</li>
+            </ul>
         </div>
     </div>
 </div>
