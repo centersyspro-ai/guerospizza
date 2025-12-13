@@ -1,4 +1,4 @@
-// script.js - Código JavaScript para Pizzería Don Guiseppe
+// script.js - Código JavaScript para Pizzería Don Guiseppe (Múltiples Pizzas)
 
 // Año actual automático
 document.addEventListener('DOMContentLoaded', function() {
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     updateCarousel();
 
-    // WhatsApp con GPS para pedidos de pizza
+    // WhatsApp con GPS para pedidos de pizza (MÚLTIPLES PIZZAS)
     const whatsappBtn = document.getElementById('whatsappBtn');
     const pizzaModal = document.getElementById('pizzaModal');
     const closeModal = document.querySelector('.close-modal');
@@ -101,80 +101,189 @@ document.addEventListener('DOMContentLoaded', function() {
     const sendWhatsApp = document.getElementById('sendWhatsApp');
     const pizzaOptionsContainer = document.querySelector('.pizza-options');
     const orderSummary = document.getElementById('orderSummary');
-    const selectedPizzaText = document.getElementById('selectedPizzaText');
-    const selectedPriceText = document.getElementById('selectedPriceText');
+    const selectedPizzasList = document.getElementById('selectedPizzasList');
+    const totalPriceElement = document.getElementById('totalPrice');
+    const itemCountElement = document.getElementById('itemCount');
     
     let userLocation = null;
-    let selectedPizza = null;
-    let selectedPrice = null;
-    const phoneNumber = '524427128200'; // Número de WhatsApp de la pizzería
+    let selectedPizzas = []; // Array para almacenar pizzas seleccionadas
+    const phoneNumber = '525555123456'; // Número de WhatsApp de la pizzería
     
-    // Crear opciones de pizza basadas en el menú
+    // Menú de pizzas
     const pizzaMenu = [
-        { name: 'Margherita Tradicional', price: 199, desc: 'Salsa de tomate, mozzarella fresca, albahaca' },
-        { name: 'Pepperoni Especial', price: 229, desc: 'Doble pepperoni, salsa especial, queso mozzarella' },
-        { name: 'Hawaiana Artesanal', price: 219, desc: 'Jamón de pavo, piña asada, queso mozzarella' },
-        { name: 'Mexicana Picante', price: 239, desc: 'Chorizo, jalapeños, pimiento, cebolla' },
-        { name: 'Vegetariana Fresca', price: 219, desc: 'Champiñones, pimientos, cebolla, aceitunas' },
-        { name: 'Cuatro Quesos', price: 249, desc: 'Mozzarella, gorgonzola, parmesano, queso de cabra' },
-        { name: 'Pizza Don Guiseppe', price: 299, desc: 'Especialidad de la casa con ingredientes premium' }
+        { id: 1, name: 'Margherita Tradicional', price: 199, desc: 'Salsa de tomate, mozzarella fresca, albahaca' },
+        { id: 2, name: 'Pepperoni Especial', price: 229, desc: 'Doble pepperoni, salsa especial, queso mozzarella' },
+        { id: 3, name: 'Hawaiana Artesanal', price: 219, desc: 'Jamón de pavo, piña asada, queso mozzarella' },
+        { id: 4, name: 'Mexicana Picante', price: 239, desc: 'Chorizo, jalapeños, pimiento, cebolla' },
+        { id: 5, name: 'Vegetariana Fresca', price: 219, desc: 'Champiñones, pimientos, cebolla, aceitunas' },
+        { id: 6, name: 'Cuatro Quesos', price: 249, desc: 'Mozzarella, gorgonzola, parmesano, queso de cabra' },
+        { id: 7, name: 'Pizza Don Guiseppe', price: 299, desc: 'Especialidad de la casa con ingredientes premium' }
     ];
     
-    // Generar opciones de pizza en el modal
+    // Generar opciones de pizza en el modal con controles de cantidad
     pizzaMenu.forEach(pizza => {
         const option = document.createElement('div');
         option.className = 'pizza-option';
+        option.setAttribute('data-pizza-id', pizza.id);
         option.innerHTML = `
             <div class="pizza-name">${pizza.name}</div>
-            <div class="pizza-desc">${pizza.desc}</div>
             <div class="pizza-price">$${pizza.price}</div>
+            <div class="pizza-quantity" style="display: none;">
+                <button class="quantity-btn minus">-</button>
+                <span class="quantity-value">1</span>
+                <button class="quantity-btn plus">+</button>
+            </div>
+            <div class="pizza-desc">${pizza.desc}</div>
         `;
-        option.addEventListener('click', () => {
-            // Remover selección anterior
-            document.querySelectorAll('.pizza-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
+        
+        // Evento para seleccionar/deseleccionar pizza
+        option.addEventListener('click', (e) => {
+            // Si se hizo clic en los botones de cantidad, no hacer nada aquí
+            if (e.target.classList.contains('quantity-btn')) {
+                return;
+            }
             
-            // Seleccionar nueva opción
-            option.classList.add('selected');
-            selectedPizza = pizza.name;
-            selectedPrice = pizza.price;
+            const pizzaId = pizza.id;
+            const existingIndex = selectedPizzas.findIndex(p => p.id === pizzaId);
             
-            // Mostrar resumen
-            orderSummary.style.display = 'block';
-            selectedPizzaText.textContent = `🍕 ${pizza.name}`;
-            selectedPriceText.textContent = `💰 $${pizza.price} MXN`;
+            if (existingIndex === -1) {
+                // Agregar pizza seleccionada
+                selectedPizzas.push({
+                    id: pizza.id,
+                    name: pizza.name,
+                    price: pizza.price,
+                    quantity: 1
+                });
+                option.classList.add('selected');
+                option.querySelector('.pizza-quantity').style.display = 'flex';
+            } else {
+                // Remover pizza seleccionada
+                selectedPizzas.splice(existingIndex, 1);
+                option.classList.remove('selected');
+                option.querySelector('.pizza-quantity').style.display = 'none';
+                option.querySelector('.quantity-value').textContent = '1';
+            }
             
+            updateOrderSummary();
             updateSendButton();
         });
+        
+        // Eventos para botones de cantidad
+        const minusBtn = option.querySelector('.minus');
+        const plusBtn = option.querySelector('.plus');
+        const quantityValue = option.querySelector('.quantity-value');
+        
+        minusBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const pizzaId = pizza.id;
+            const pizzaIndex = selectedPizzas.findIndex(p => p.id === pizzaId);
+            
+            if (pizzaIndex !== -1 && selectedPizzas[pizzaIndex].quantity > 1) {
+                selectedPizzas[pizzaIndex].quantity--;
+                quantityValue.textContent = selectedPizzas[pizzaIndex].quantity;
+                updateOrderSummary();
+            } else if (selectedPizzas[pizzaIndex].quantity === 1) {
+                // Si la cantidad es 1 y se presiona menos, remover la pizza
+                selectedPizzas.splice(pizzaIndex, 1);
+                option.classList.remove('selected');
+                option.querySelector('.pizza-quantity').style.display = 'none';
+                quantityValue.textContent = '1';
+                updateOrderSummary();
+                updateSendButton();
+            }
+        });
+        
+        plusBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const pizzaId = pizza.id;
+            const pizzaIndex = selectedPizzas.findIndex(p => p.id === pizzaId);
+            
+            if (pizzaIndex !== -1) {
+                selectedPizzas[pizzaIndex].quantity++;
+                quantityValue.textContent = selectedPizzas[pizzaIndex].quantity;
+                updateOrderSummary();
+            }
+        });
+        
         pizzaOptionsContainer.appendChild(option);
     });
     
-    // Botones de ordenar en el menú
+    // Actualizar resumen del pedido
+    function updateOrderSummary() {
+        if (selectedPizzas.length === 0) {
+            orderSummary.style.display = 'none';
+            itemCountElement.textContent = '0';
+            return;
+        }
+        
+        let totalItems = 0;
+        let totalPrice = 0;
+        let summaryHTML = '';
+        
+        selectedPizzas.forEach(pizza => {
+            const subtotal = pizza.price * pizza.quantity;
+            totalItems += pizza.quantity;
+            totalPrice += subtotal;
+            
+            summaryHTML += `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed #ddd;">
+                    <div>
+                        <strong>${pizza.name}</strong><br>
+                        <small>Cantidad: ${pizza.quantity} x $${pizza.price}</small>
+                    </div>
+                    <div style="font-weight: bold; color: var(--secondary-color);">
+                        $${subtotal}
+                    </div>
+                </div>
+            `;
+        });
+        
+        selectedPizzasList.innerHTML = summaryHTML;
+        totalPriceElement.innerHTML = `Total: <span style="color: var(--primary-color);">$${totalPrice} MXN</span>`;
+        itemCountElement.textContent = totalItems;
+        orderSummary.style.display = 'block';
+    }
+    
+    // Botones de ordenar en el menú principal (añade 1 unidad de esa pizza)
     document.querySelectorAll('.menu-item .btn, #specialPizzaBtn, #orderHeroBtn').forEach(button => {
         button.addEventListener('click', function() {
             const pizzaName = this.getAttribute('data-pizza');
-            const pizzaPrice = this.getAttribute('data-price');
+            const pizzaPrice = parseInt(this.getAttribute('data-price'));
             
             // Abrir modal
             pizzaModal.style.display = 'block';
             getLocation();
             
-            // Seleccionar la pizza correspondiente
-            const options = document.querySelectorAll('.pizza-option');
-            options.forEach(option => {
-                const nameElement = option.querySelector('.pizza-name');
-                if (nameElement && nameElement.textContent === pizzaName) {
-                    option.click();
+            // Buscar la pizza en el menú
+            const pizza = pizzaMenu.find(p => p.name === pizzaName);
+            if (pizza) {
+                const pizzaOption = document.querySelector(`[data-pizza-id="${pizza.id}"]`);
+                if (pizzaOption) {
+                    // Verificar si ya está seleccionada
+                    const existingIndex = selectedPizzas.findIndex(p => p.id === pizza.id);
+                    
+                    if (existingIndex === -1) {
+                        // Agregar nueva pizza
+                        selectedPizzas.push({
+                            id: pizza.id,
+                            name: pizza.name,
+                            price: pizza.price,
+                            quantity: 1
+                        });
+                        pizzaOption.classList.add('selected');
+                        pizzaOption.querySelector('.pizza-quantity').style.display = 'flex';
+                    } else {
+                        // Incrementar cantidad si ya está seleccionada
+                        selectedPizzas[existingIndex].quantity++;
+                        pizzaOption.querySelector('.quantity-value').textContent = selectedPizzas[existingIndex].quantity;
+                    }
+                    
+                    updateOrderSummary();
+                    updateSendButton();
+                    
+                    // Hacer scroll a la pizza seleccionada
+                    pizzaOption.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
-            });
-            
-            // Si es el botón de la especialidad
-            if (pizzaName === 'Pizza Don Guiseppe') {
-                const specialOption = Array.from(options).find(opt => 
-                    opt.querySelector('.pizza-name').textContent === 'Pizza Don Guiseppe'
-                );
-                if (specialOption) specialOption.click();
             }
         });
     });
@@ -321,7 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Limpiar y formatear display_name
                         direccionFormateada = data.display_name
                             .split(',')
-                            .slice(0, 3) // Tomar solo los primeros 3 elementos
+                            .slice(0, 3)
                             .join(', ')
                             .replace(/,\s*,/g, ',')
                             .trim();
@@ -348,22 +457,38 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Actualizar estado del botón de enviar
     function updateSendButton() {
-        sendWhatsApp.disabled = !userLocation || !selectedPizza;
+        sendWhatsApp.disabled = !userLocation || selectedPizzas.length === 0;
     }
     
-    // Enviar mensaje por WhatsApp
+    // Enviar mensaje por WhatsApp con múltiples pizzas
     sendWhatsApp.addEventListener('click', function() {
-        if (!userLocation || !selectedPizza) return;
+        if (!userLocation || selectedPizzas.length === 0) return;
         
         const lat = userLocation.lat;
         const lng = userLocation.lng;
         const mapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
         const locationDescription = locationText.textContent.replace('📍 ', '');
         
+        // Calcular total
+        let totalPrice = 0;
+        selectedPizzas.forEach(pizza => {
+            totalPrice += pizza.price * pizza.quantity;
+        });
+        
         // Construir mensaje para WhatsApp
         let message = `🍕 *PEDIDO DE PIZZA - DON GUISEPPE*\n\n`;
-        message += `*Pizza solicitada:* ${selectedPizza}\n`;
-        message += `*Precio:* $${selectedPrice} MXN\n\n`;
+        message += `*📋 DETALLE DEL PEDIDO:*\n`;
+        message += `────────────────────\n`;
+        
+        selectedPizzas.forEach(pizza => {
+            const subtotal = pizza.price * pizza.quantity;
+            message += `• ${pizza.quantity}x ${pizza.name}\n`;
+            message += `  ${pizza.quantity} x $${pizza.price} = $${subtotal}\n`;
+        });
+        
+        message += `────────────────────\n`;
+        message += `*Total: $${totalPrice} MXN*\n\n`;
+        
         message += `*📍 MI UBICACIÓN PARA ENTREGA:*\n`;
         message += `${locationDescription}\n`;
         message += `*Enlace de Google Maps:* ${mapsUrl}\n\n`;
@@ -373,8 +498,8 @@ document.addEventListener('DOMContentLoaded', function() {
             message += `${userMessage.value.trim()}\n\n`;
         }
         
-        // message += `*⏰ HORARIO DE ENTREGA:*\n`;
-        // message += `Lo antes posible\n\n`;
+        message += `*⏰ HORARIO DE ENTREGA:*\n`;
+        message += `Lo antes posible\n\n`;
         message += `*📞 MIS DATOS DE CONTACTO:*\n`;
         message += `(Favor de contactarme para confirmar pedido y forma de pago)`;
         
@@ -394,7 +519,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // También enviar con Enter en textarea
     userMessage.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey && userLocation && selectedPizza) {
+        if (e.key === 'Enter' && !e.shiftKey && userLocation && selectedPizzas.length > 0) {
             e.preventDefault();
             sendWhatsApp.click();
         }
@@ -402,16 +527,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function resetForm() {
         userLocation = null;
-        selectedPizza = null;
-        selectedPrice = null;
+        selectedPizzas = [];
         userMessage.value = '';
         locationText.textContent = 'Obteniendo ubicación...';
         locationStatus.classList.remove('location-success', 'location-error');
         orderSummary.style.display = 'none';
+        itemCountElement.textContent = '0';
         
-        // Deseleccionar todas las pizzas
+        // Deseleccionar todas las pizzas y resetear cantidades
         document.querySelectorAll('.pizza-option').forEach(opt => {
             opt.classList.remove('selected');
+            opt.querySelector('.pizza-quantity').style.display = 'none';
+            opt.querySelector('.quantity-value').textContent = '1';
         });
         
         updateSendButton();
