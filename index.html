@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzería Don Guiseppe | Las Mejores Pizzas Artesanales</title>
+    <meta name="description" content="Pizzería Don Guiseppe - 20 años de tradición italiana. Pizzas artesanales, servicio a domicilio y recogida en local. Pedidos por WhatsApp con ubicación GPS.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Manifest para PWA -->
+    <link rel="manifest" href="assets/js/manifest.json">
+    <style>
+        /* Variables CSS para pizzas */
+        :root {
+            --primary-color: #D32F2F; /* Rojo pizzas */
+            --secondary-color: #FF9800; /* Naranja */
+            --accent-color: #4CAF50; /* Verde */
+            --text-color: #333333;
+            --light-color: #f8f8f8;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--white);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 0.5rem auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--white);
+        }
+
+        .logo-text span {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--white);
+            margin: 5px;
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .highlight {
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--light-color);
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 2rem;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .about-image img {
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+
+        .about-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Menu Section */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .menu-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .menu-item:hover .menu-image img {
+            transform: scale(1.05);
+        }
+
+        .menu-content {
+            padding: 1.5rem;
+        }
+
+        .menu-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-price {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .menu-ingredients {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+
+        /* Specials Section */
+        .specials {
+            background-color: #fff8e1;
+        }
+
+        .specials-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .specials-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 2rem;
+        }
+
+        .specials-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .specials-image img {
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+
+        .specials-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background-color: var(--light-color);
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .carousel-track-container {
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            width: 100%;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .carousel-image {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .carousel-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: var(--white);
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: var(--white);
+            border: none;
+            font-size: 1.5rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+            border-radius: 4px;
+        }
+
+        .carousel-btn:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .carousel-btn.prev {
+            left: 10px;
+        }
+
+        .carousel-btn.next {
+            right: 10px;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+            gap: 8px;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .carousel-indicator.active {
+            background-color: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        .carousel-indicator:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Map Section */
+        .map-container {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .map-container iframe {
+            display: block;
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+
+        /* Hours Section */
+        .hours {
+            background-color: var(--light-color);
+        }
+
+        .hours-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hours-table {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            min-width: 300px;
+        }
+
+        .hours-table h3 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .hours-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .hours-table tr {
+            border-bottom: 1px solid #eee;
+        }
+
+        .hours-table td {
+            padding: 0.8rem 0;
+        }
+
+        .hours-table .day {
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .hours-table .time {
+            text-align: right;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            bottom: -8px;
+            left: 0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--white);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .whatsapp-btn i {
+            font-size: 35px;
+            color: var(--white);
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* Modal para pedido de pizza */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--accent-color);
+            transition: var(--transition);
+            background: none;
+            border: none;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+            background-color: rgba(0,0,0,0.1);
+            transform: scale(1.1);
+        }
+
+        .location-section {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: var(--light-color);
+            border-radius: 8px;
+        }
+
+        .location-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .location-loading {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-color);
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn-location {
+            background-color: var(--accent-color);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn-location:hover {
+            background-color: #388E3C;
+        }
+
+        .message-section {
+            margin: 1.5rem 0;
+        }
+
+        .message-section textarea {
+            width: 100%;
+            height: 80px;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: 'Lato', sans-serif;
+            margin-top: 0.5rem;
+        }
+
+        .btn-send {
+            width: 100%;
+            padding: 1rem;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+
+        .btn-send:hover:not(:disabled) {
+            background-color: #1da851;
+            transform: translateY(-2px);
+        }
+
+        .btn-send:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .location-success {
+            color: #25D366;
+            font-weight: 600;
+        }
+
+        .location-error {
+            color: #ff4444;
+            font-weight: 600;
+        }
+
+        /* Pizza Selection */
+        .pizza-options {
+            margin: 1rem 0;
+        }
+
+        .pizza-option {
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 0.5rem;
+            background: white;
+        }
+
+        .pizza-option:hover {
+            border-color: var(--primary-color);
+            background-color: #fff5f5;
+        }
+
+        .pizza-option.selected {
+            border-color: var(--primary-color);
+            background-color: #ffeaea;
+        }
+
+        .pizza-name {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .pizza-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .pizza-price {
+            float: right;
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+
+        /* Estilos para APK/APP */
+        .app-mode .whatsapp-btn {
+            bottom: 80px;
+        }
+
+        .app-mode header {
+            padding-top: env(safe-area-inset-top);
+        }
+
+        @media (display-mode: standalone) {
+            body {
+                padding-top: env(safe-area-inset-top);
+            }
+            
+            .hero {
+                margin-top: calc(80px + env(safe-area-inset-top));
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 1rem 0;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-menu li {
+                margin: 1.5rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active div:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .hamburger.active div:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active div:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-text, .specials-text {
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+
+            .carousel-image {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .btn {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Pizzería Don Guiseppe Logo">
+                <div class="logo-text">DON <span>GUISEPPE</span></div>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#menu">Menú</a></li>
+                    <li><a href="#especialidades">Especialidades</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>PIZZERÍA DON GUISEPPE</h1>
+            <p>20 años de tradición italiana en México</p>
+            <p>Pizzas artesanales horneadas en horno de leña</p>
+            <a href="#menu" class="btn">Ver Menú</a>
+            <a href="javascript:void(0)" class="btn" id="orderHeroBtn" style="margin-left: 10px; background-color: var(--secondary-color);">Pedir Ahora</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="nosotros">
+        <div class="container">
+            <h2 class="section-title">Nuestra Historia</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Desde 2003, <span class="highlight">Pizzería Don Guiseppe</span> ha sido sinónimo de auténtica pizza italiana en la Ciudad de México. Fundada por el chef Giuseppe Rossi, quien emigró desde Nápoles con la receta secreta de su familia.</p>
+                    <p>Utilizamos solo ingredientes de la más alta calidad: harina italiana "00", mozzarella de búfala, tomates San Marzano y nuestro secreto mejor guardado: la masa fermentada por 48 horas.</p>
+                    <p>Todas nuestras pizzas son preparadas a mano y horneadas en horno de leña tradicional, alcanzando los 450°C que garantizan ese sabor y textura únicos.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1595708684082-a173bb3a06c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Chef preparando pizza" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="section" id="menu">
+        <div class="container">
+            <h2 class="section-title">Nuestro Menú</h2>
+            <div class="menu-grid">
+                <!-- Pizza 1 -->
+                <div class="menu-item">
+                    <div class="menu-image">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pizza Margherita" loading="lazy">
+                    </div>
+                    <div class="menu-content">
+                        <h3>Margherita Tradicional</h3>
+                        <div class="menu-price">$199</div>
+                        <div class="menu-ingredients">Salsa de tomate, mozzarella fresca, albahaca, aceite de oliva extra virgen</div>
+                        <button class="btn" style="padding: 8px 20px; font-size: 0.9rem;" data-pizza="Margherita Tradicional" data-price="199">Ordenar</button>
+                    </div>
+                </div>
+                
+                <!-- Pizza 2 -->
+                <div class="menu-item">
+                    <div class="menu-image">
+                        <img src="https://images.unsplash.com/photo-1593246049226-ded77bf90326?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pizza Pepperoni" loading="lazy">
+                    </div>
+                    <div class="menu-content">
+                        <h3>Pepperoni Especial</h3>
+                        <div class="menu-price">$229</div>
+                        <div class="menu-ingredients">Doble pepperoni, salsa especial, queso mozzarella, orégano</div>
+                        <button class="btn" style="padding: 8px 20px; font-size: 0.9rem;" data-pizza="Pepperoni Especial" data-price="229">Ordenar</button>
+                    </div>
+                </div>
+                
+                <!-- Pizza 3 -->
+                <div class="menu-item">
+                    <div class="menu-image">
+                        <img src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pizza Hawaiana" loading="lazy">
+                    </div>
+                    <div class="menu-content">
+                        <h3>Hawaiana Artesanal</h3>
+                        <div class="menu-price">$219</div>
+                        <div class="menu-ingredients">Jamón de pavo, piña asada, queso mozzarella, salsa BBQ</div>
+                        <button class="btn" style="padding: 8px 20px; font-size: 0.9rem;" data-pizza="Hawaiana Artesanal" data-price="219">Ordenar</button>
+                    </div>
+                </div>
+                
+                <!-- Pizza 4 -->
+                <div class="menu-item">
+                    <div class="menu-image">
+                        <img src="https://images.unsplash.com/photo-1559978137-8c560d91e9e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pizza Mexicana" loading="lazy">
+                    </div>
+                    <div class="menu-content">
+                        <h3>Mexicana Picante</h3>
+                        <div class="menu-price">$239</div>
+                        <div class="menu-ingredients">Chorizo, jalapeños, pimiento, cebolla, salsa de chile habanero</div>
+                        <button class="btn" style="padding: 8px 20px; font-size: 0.9rem;" data-pizza="Mexicana Picante" data-price="239">Ordenar</button>
+                    </div>
+                </div>
+                
+                <!-- Pizza 5 -->
+                <div class="menu-item">
+                    <div class="menu-image">
+                        <img src="https://images.unsplash.com/photo-1599458254205-d4c6c5c85c4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pizza Vegetariana" loading="lazy">
+                    </div>
+                    <div class="menu-content">
+                        <h3>Vegetariana Fresca</h3>
+                        <div class="menu-price">$219</div>
+                        <div class="menu-ingredients">Champiñones, pimientos, cebolla, aceitunas, espinacas, queso de cabra</div>
+                        <button class="btn" style="padding: 8px 20px; font-size: 0.9rem;" data-pizza="Vegetariana Fresca" data-price="219">Ordenar</button>
+                    </div>
+                </div>
+                
+                <!-- Pizza 6 -->
+                <div class="menu-item">
+                    <div class="menu-image">
+                        <img src="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pizza 4 Quesos" loading="lazy">
+                    </div>
+                    <div class="menu-content">
+                        <h3>Cuatro Quesos</h3>
+                        <div class="menu-price">$249</div>
+                        <div class="menu-ingredients">Mozzarella, gorgonzola, parmesano, queso de cabra, miel de abeja</div>
+                        <button class="btn" style="padding: 8px 20px; font-size: 0.9rem;" data-pizza="Cuatro Quesos" data-price="249">Ordenar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specials Section -->
+    <section class="section specials" id="especialidades">
+        <div class="container">
+            <h2 class="section-title">Especialidades de la Casa</h2>
+            <div class="specials-content">
+                <div class="specials-text">
+                    <h3>Pizza Don Guiseppe</h3>
+                    <p>Nuestra pizza insignia, creada por el chef fundador. Combina lo mejor de Italia con sabores mexicanos.</p>
+                    <p><strong>Ingredientes exclusivos:</strong> Jamón serrano, chorizo ibérico, champiñones portobello, trufa negra, queso manchego y nuestro toque secreto: miel de maguey.</p>
+                    <p><strong>Precio especial:</strong> $299 (solo por tiempo limitado)</p>
+                    <p><strong>Tiempo de preparación:</strong> 15 minutos en nuestro horno de leña tradicional.</p>
+                    <button class="btn" id="specialPizzaBtn" data-pizza="Pizza Don Guiseppe" data-price="299">Ordenar Especialidad</button>
+                </div>
+                <div class="specials-image">
+                    <img src="https://images.unsplash.com/photo-1601924582970-9238bcb495d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pizza Especial de la Casa" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section gallery" id="galeria">
+        <div class="container">
+            <h2 class="section-title">Nuestro Local</h2>
+            <div class="carousel">
+                <div class="carousel-track-container">
+                    <div class="carousel-track">
+                        <!-- Slide 1 -->
+                        <div class="carousel-slide">
+                            <div class="carousel-image">
+                                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Interior de la pizzería">
+                            </div>
+                            <div class="carousel-caption">
+                                <p>Ambiente cálido y familiar para disfrutar en compañía</p>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="carousel-slide">
+                            <div class="carousel-image">
+                                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Horno de leña tradicional">
+                            </div>
+                            <div class="carousel-caption">
+                                <p>Nuestro horno de leña alcanza 450°C para pizzas perfectas</p>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="carousel-slide">
+                            <div class="carousel-image">
+                                <img src="https://images.unsplash.com/photo-1574126154517-d1e0d89ef734?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Ingredientes frescos">
+                            </div>
+                            <div class="carousel-caption">
+                                <p>Solo utilizamos ingredientes frescos y de la mejor calidad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn prev" aria-label="Slide anterior">&#10094;</button>
+                <button class="carousel-btn next" aria-label="Slide siguiente">&#10095;</button>
+                <div class="carousel-indicators">
+                    <button class="carousel-indicator active" data-index="0" aria-label="Ir al slide 1"></button>
+                    <button class="carousel-indicator" data-index="1" aria-label="Ir al slide 2"></button>
+                    <button class="carousel-indicator" data-index="2" aria-label="Ir al slide 3"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hours Section -->
+    <section class="section hours">
+        <div class="container">
+            <h2 class="section-title">Horarios de Atención</h2>
+            <div class="hours-content">
+                <div class="hours-table">
+                    <h3>Horario del Restaurante</h3>
+                    <table>
+                        <tr>
+                            <td class="day">Lunes - Jueves</td>
+                            <td class="time">12:00 PM - 10:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td class="day">Viernes - Sábado</td>
+                            <td class="time">12:00 PM - 11:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td class="day">Domingo</td>
+                            <td class="time">12:00 PM - 9:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td class="day">Servicio a Domicilio</td>
+                            <td class="time">Todos los días hasta 30 min antes del cierre</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="section" id="contacto">
+        <div class="container">
+            <h2 class="section-title">Encuéntranos</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.888035166991!2d-99.16999792416684!3d19.4270205411231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff35f5bd1563%3A0x6c366f0e2de02ff7!2sEl%20Morro%2C%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1698789765437!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>DON GUISEPPE</h3>
+                    <p>20 años llevando auténtica pizza italiana a la Ciudad de México. Tradición, calidad y sabor inigualables.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Menú Rápido</h3>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#menu">Menú</a></li>
+                        <li><a href="#especialidades">Especialidades</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li>Teléfono: <a href="tel:+525555123456">+52 55 5512 3456</a></li>
+                        <li>WhatsApp: <a href="https://wa.me/524427128200">+52 4642 712 8200</a></li>
+                        <li>Dirección: Hidalgo 100 centro Apaseo el Alto, Gto.</li>
+                        <li>Email: <a href="mailto:pedidos@donguiseppe.com">pedidos@donguiseppe.com</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Síguenos</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> Pizzería Don Guiseppe. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-btn" id="whatsappBtn" aria-label="Pedir pizza por WhatsApp" role="button" tabindex="0">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <!-- Modal para pedido de pizza -->
+    <div id="pizzaModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Cerrar modal">&times;</button>
+            <h3 id="modalTitle">🍕 Pedir Pizza por WhatsApp</h3>
+            
+            <div class="pizza-options">
+                <h4>Selecciona tu pizza:</h4>
+                <!-- Las opciones se generan dinámicamente con JavaScript -->
+            </div>
+            
+            <div class="location-section">
+                <label for="userLocation">📍 Tu ubicación para entrega:</label>
+                <div id="locationStatus" class="location-status">
+                    <span id="locationText">Obteniendo ubicación...</span>
+                    <div class="location-loading" aria-hidden="true"></div>
+                </div>
+                <button id="getLocationBtn" class="btn-location">🔄 Actualizar Ubicación</button>
+            </div>
+            
+            <div class="message-section">
+                <label for="userMessage">📝 Instrucciones especiales (opcional):</label>
+                <textarea id="userMessage" placeholder="Ejemplo: Sin cebolla, bien cocida, cortada en 8 porciones..."></textarea>
+            </div>
+            
+            <div id="orderSummary" style="margin: 1rem 0; padding: 1rem; background: #f5f5f5; border-radius: 8px; display: none;">
+                <h4>Resumen del Pedido:</h4>
+                <p id="selectedPizzaText"></p>
+                <p id="selectedPriceText"></p>
+            </div>
+            
+            <button id="sendWhatsApp" class="btn-send" disabled>
+                📤 Enviar Pedido por WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
