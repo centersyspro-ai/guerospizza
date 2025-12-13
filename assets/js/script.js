@@ -476,8 +476,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Construir mensaje para WhatsApp
-        let message = `🍕 *PEDIDO DE PIZZA - DON GUISEPPE*\n\n`;
-        message += `*📋 DETALLE DEL PEDIDO:*\n`;
+        let message = `* PEDIDO DE PIZZA - DON GUISEPPE*\n\n`;
+        message += `* DETALLE DEL PEDIDO:*\n`;
         message += `────────────────────\n`;
         
         selectedPizzas.forEach(pizza => {
@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', function() {
         message += `────────────────────\n`;
         message += `*Total: $${totalPrice} MXN*\n\n`;
         
-        message += `*📍 MI UBICACIÓN PARA ENTREGA:*\n`;
+        message += `* MI UBICACIÓN PARA ENTREGA:*\n`;
         message += `${locationDescription}\n`;
         message += `*Enlace de Google Maps:* ${mapsUrl}\n\n`;
         
@@ -498,9 +498,9 @@ document.addEventListener('DOMContentLoaded', function() {
             message += `${userMessage.value.trim()}\n\n`;
         }
         
-        // message += `*⏰ HORARIO DE ENTREGA:*\n`;
+        // message += `* HORARIO DE ENTREGA:*\n`;
         // message += `Lo antes posible\n\n`;
-        message += `*📞 MIS DATOS DE CONTACTO:*\n`;
+        message += `* MIS DATOS DE CONTACTO:*\n`;
         message += `(Favor de contactarme para confirmar pedido y forma de pago)`;
         
         // Codificar el mensaje para URL
