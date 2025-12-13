@@ -476,8 +476,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Construir mensaje para WhatsApp
-        let message = `* PEDIDO DE PIZZA - DON GUISEPPE*\n\n`;
-        message += `* DETALLE DEL PEDIDO:*\n`;
+        let message = `* Güueor´s Pizza*\n\n`;
+        message += `* Detalle Pedido:*\n`;
         message += `────────────────────\n`;
         
         selectedPizzas.forEach(pizza => {
