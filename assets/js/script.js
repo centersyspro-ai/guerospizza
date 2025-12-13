@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let userLocation = null;
     let selectedPizza = null;
     let selectedPrice = null;
-    const phoneNumber = '525555123456'; // Número de WhatsApp de la pizzería
+    const phoneNumber = '524427128200'; // Número de WhatsApp de la pizzería
     
     // Crear opciones de pizza basadas en el menú
     const pizzaMenu = [
