@@ -476,7 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Construir mensaje para WhatsApp
-        let message = `* Güueor´s Pizza*\n\n`;
+        let message = `* Güero´s Pizza*\n\n`;
         message += `* Detalle Pedido:*\n`;
         message += `────────────────────\n`;
         
