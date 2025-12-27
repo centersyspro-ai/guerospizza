@@ -333,7 +333,7 @@ document.addEventListener('DOMContentLoaded', function() {
         whatsappMessageText += ` UBICACIÓN DE ENTREGA:*\n${location}\n\n`;
         whatsappMessageText += ` ENLACE GOOGLE MAPS:*\n${mapsUrl}\n\n`;
         whatsappMessageText += ` HORA DEL PEDIDO:* ${new Date().toLocaleString('es-MX')}\n`;
-        whatsappMessageText += `\n &#x1F601; Pedido generado desde la web de Güero´s Pizza`;
+        whatsappMessageText += `\n Pedido generado desde la web de Güero´s Pizza`;
         
         // Codificar para URL
         const encodedMessage = encodeURIComponent(whatsappMessageText);
