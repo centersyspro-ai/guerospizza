@@ -326,14 +326,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Construir mensaje completo CON los datos del cliente
-        let whatsappMessageText = `-💘 Güero´s Pizza - Nuevo Pedido Online*\n\n`;
-        whatsappMessageText += `*👤 CLIENTE:* ${name}\n`;
-        whatsappMessageText += `*📱 TELÉFONO DEL CLIENTE:* ${phone}\n\n`;
-        whatsappMessageText += `*📝 PEDIDO SOLICITADO:*\n${message}\n\n`;
-        whatsappMessageText += `*📍 UBICACIÓN DE ENTREGA:*\n${location}\n\n`;
-        whatsappMessageText += `*🗺️ ENLACE GOOGLE MAPS:*\n${mapsUrl}\n\n`;
-        whatsappMessageText += `*⏰ HORA DEL PEDIDO:* ${new Date().toLocaleString('es-MX')}\n`;
-        whatsappMessageText += `\n_📲 Pedido generado desde la web de Güero´s Pizza_`;
+        let whatsappMessageText = ` Güero´s Pizza - Nuevo Pedido Online*\n\n`;
+        whatsappMessageText += ` CLIENTE:* ${name}\n`;
+        whatsappMessageText += ` TELÉFONO DEL CLIENTE:* ${phone}\n\n`;
+        whatsappMessageText += ` PEDIDO SOLICITADO:*\n${message}\n\n`;
+        whatsappMessageText += ` UBICACIÓN DE ENTREGA:*\n${location}\n\n`;
+        whatsappMessageText += ` ENLACE GOOGLE MAPS:*\n${mapsUrl}\n\n`;
+        whatsappMessageText += ` HORA DEL PEDIDO:* ${new Date().toLocaleString('es-MX')}\n`;
+        whatsappMessageText += `\n_ Pedido generado desde la web de Güero´s Pizza_`;
         
         // Codificar para URL
         const encodedMessage = encodeURIComponent(whatsappMessageText);

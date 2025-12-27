@@ -381,8 +381,8 @@
         <button class="whatsapp-close-modal" aria-label="Cerrar modal">&times;</button>
         
         <div class="whatsapp-header">
-            <h3 id="whatsappModalTitle">📱 Pedir por WhatsApp</h3>
-            <p style="opacity: 0.9; margin-top: 5px;">¡Envíanos tu pedido directamente a nuestro WhatsApp!</p>
+            <h3 id="whatsappModalTitle">📱 Gracias por su pedido.</h3>
+            <p style="opacity: 0.9; margin-top: 5px;">¡Tu pedido se irá por WhatsApp!</p>
         </div>
         
         <form id="whatsappForm">
@@ -394,7 +394,7 @@
             </div>
             
             <div class="whatsapp-form-group">
-                <label for="whatsappPhone" class="required">Tu Teléfono (para contactarte)</label>
+                <label for="whatsappPhone" class="required">Anota Tu Teléfono (10 dígitos)</label>
                 <input type="tel" id="whatsappPhone" class="whatsapp-form-control" 
                 placeholder="Ej: 4427128200, +524427128200 o 5214427128200"
                 pattern="^(\+52|52|521?)?\d{10}$" required
@@ -404,7 +404,7 @@
             </div>
             
             <div class="whatsapp-form-group">
-                <label for="whatsappMessage" class="required">Tu Pedido</label>
+                <label for="whatsappMessage" class="required">Escribe Tu Pedido</label>
                 <textarea id="whatsappMessage" class="whatsapp-form-control" 
                           placeholder="Ej: 1 Pizza Margherita, 1 Pizza Pepperoni, 2 Coca Cola, etc..."
                           required aria-required="true"></textarea>
@@ -429,7 +429,7 @@
                     
                     <div id="manualLocationInput" class="manual-location-input">
                         <input type="text" id="whatsappManualAddress" class="whatsapp-form-control" 
-                               placeholder="Ej: Calle Principal #123, Colonia Centro, Apaseo el Alto, Gto.">
+                               placeholder="Ejemplo: Calle Principal #123, Colonia Centro, Apaseo el Alto, Gto.">
                         <button type="button" id="whatsappSaveManualLocation" class="btn-location" style="margin-top: 10px;">
                             ✅ Guardar Esta Dirección
                         </button>
@@ -439,7 +439,7 @@
             
             <button type="submit" id="whatsappSendBtn" class="btn-whatsapp" disabled>
                 <span class="whatsapp-icon"></span>
-                Enviar Pedido por WhatsApp
+                Enviar Pedido
             </button>
             
             <div class="success-message" id="successMessage">
@@ -452,12 +452,8 @@
                <p><strong>📱 Información importante:</strong></p>
            <ul style="padding-left: 20px; margin-top: 5px;">
               <li>El mensaje se enviará al WhatsApp de la pizzería: <strong>442 712 8200</strong></li>
-              <li>Tu teléfono se incluirá en el mensaje para contactarte</li>
-              <li>En Android se abrirá la app de WhatsApp</li>
-              <li>En iOS/escritorio se abrirá WhatsApp Web</li>
-              <li>El teléfono debe tener 10 dígitos (formatos mexicanos aceptados)</li>
-              <li>Incluimos enlace de Google Maps con tu ubicación</li>
-              <li>Tiempo de entrega: 30-45 minutos (según ubicación)</li>
+              <li>El teléfono debe tener 10 dígitos.</li>
+              
            </ul>
         </div>
     </div>
