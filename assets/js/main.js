@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Construir mensaje completo CON los datos del cliente
-        let whatsappMessageText = `*🍕 Güero´s Pizza - Nuevo Pedido Online*\n\n`;
+        let whatsappMessageText = `-💘 Güero´s Pizza - Nuevo Pedido Online*\n\n`;
         whatsappMessageText += `*👤 CLIENTE:* ${name}\n`;
         whatsappMessageText += `*📱 TELÉFONO DEL CLIENTE:* ${phone}\n\n`;
         whatsappMessageText += `*📝 PEDIDO SOLICITADO:*\n${message}\n\n`;
