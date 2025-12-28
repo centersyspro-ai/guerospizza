@@ -1338,3 +1338,44 @@ textarea.whatsapp-form-control {
             }
         }
     
+
+
+
+        /* Agregar al final del archivo styles.css esto es para darle css a los botones de "ordenar"  */
+
+/* Estilo para botones de ordenar pizza */
+.order-pizza-btn {
+    background-color: var(--secondary-color) !important;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.order-pizza-btn:hover {
+    background-color: var(--primary-color) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón del hero "Pedir Ahora" */
+#orderHeroBtn {
+    background-color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+}
+
+#orderHeroBtn:hover {
+    background-color: #e68900;
+    border-color: #e68900;
+}
+
+/* Botón de especialidad */
+#specialPizzaBtn {
+    background-color: #ff5722;
+    margin-top: 1rem;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+}
+
+#specialPizzaBtn:hover {
+    background-color: #e64a19;
+    transform: translateY(-3px);
+}

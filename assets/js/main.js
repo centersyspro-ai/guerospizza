@@ -1,5 +1,4 @@
-<!-- Agregar este código JavaScript al final del archivo, antes del cierre del body -->
-
+ 
 // WhatsApp Modal Mejorado
 document.addEventListener('DOMContentLoaded', function() {
     // Elementos del modal WhatsApp
@@ -419,4 +418,127 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicializar
     updateCarousel(0);
+});
+
+
+// Elementos para manejar los botones de ordenar
+const orderHeroBtn = document.getElementById('orderHeroBtn');
+const orderPizzaBtns = document.querySelectorAll('.order-pizza-btn');
+const specialPizzaBtn = document.getElementById('specialPizzaBtn');
+
+// Configurar botón "Pedir Ahora" del hero
+if (orderHeroBtn) {
+    orderHeroBtn.addEventListener('click', function() {
+        // Abrir el modal de WhatsApp directamente
+        whatsappModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Limpiar el mensaje anterior y poner un mensaje genérico
+        whatsappMessage.value = "¡Hola! Me gustaría hacer un pedido de pizza. Por favor, ayúdenme con las opciones disponibles.";
+        
+        // Actualizar contador de caracteres
+        charCount.textContent = whatsappMessage.value.length;
+        
+        // Intentar obtener ubicación automáticamente
+        setTimeout(() => {
+            if (!userLocation && !isManualLocation) {
+                getWhatsappLocation();
+            }
+        }, 500);
+        
+        // Enfocar el campo de nombre
+        setTimeout(() => {
+            whatsappName.focus();
+        }, 300);
+    });
+}
+
+// Configurar botones de "Ordenar" de las pizzas
+orderPizzaBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const pizzaName = this.getAttribute('data-pizza');
+        const pizzaPrice = this.getAttribute('data-price');
+        const pizzaDesc = this.getAttribute('data-description');
+        
+        // Abrir modal de WhatsApp
+        whatsappModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Preparar mensaje con la pizza seleccionada
+        let orderMessage = `Quiero ordenar:\n`;
+        orderMessage += `🍕 ${pizzaName} - $${pizzaPrice}\n`;
+        orderMessage += `Descripción: ${pizzaDesc}\n\n`;
+        orderMessage += `Por favor, díganme el tiempo de entrega y el costo de envío.`;
+        
+        whatsappMessage.value = orderMessage;
+        charCount.textContent = orderMessage.length;
+        
+        // Intentar obtener ubicación automáticamente
+        setTimeout(() => {
+            if (!userLocation && !isManualLocation) {
+                getWhatsappLocation();
+            }
+        }, 500);
+        
+        // Enfocar el campo de nombre
+        setTimeout(() => {
+            whatsappName.focus();
+        }, 300);
+    });
+});
+
+// Configurar botón de especialidad
+if (specialPizzaBtn) {
+    specialPizzaBtn.addEventListener('click', function() {
+        const pizzaName = this.getAttribute('data-pizza');
+        const pizzaPrice = this.getAttribute('data-price');
+        const pizzaDesc = this.getAttribute('data-description');
+        
+        // Abrir modal de WhatsApp
+        whatsappModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Preparar mensaje con la especialidad
+        let orderMessage = `¡Quiero ordenar la ESPECIALIDAD DE LA CASA! 🍕\n\n`;
+        orderMessage += `🔸 ${pizzaName} - $${pizzaPrice}\n`;
+        orderMessage += `🔸 ${pizzaDesc}\n\n`;
+        orderMessage += `¿Cuál es el tiempo de preparación y entrega para esta especialidad?`;
+        
+        whatsappMessage.value = orderMessage;
+        charCount.textContent = orderMessage.length;
+        
+        // Intentar obtener ubicación automáticamente
+        setTimeout(() => {
+            if (!userLocation && !isManualLocation) {
+                getWhatsappLocation();
+            }
+        }, 500);
+        
+        // Enfocar el campo de nombre
+        setTimeout(() => {
+            whatsappName.focus();
+        }, 300);
+    });
+}
+
+// También actualizar el listener del botón flotante de WhatsApp para que use la misma función
+whatsappModalBtn.addEventListener('click', function() {
+    whatsappModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    
+    // Limpiar mensaje anterior
+    whatsappMessage.value = "";
+    charCount.textContent = "0";
+    
+    // Intentar obtener ubicación automáticamente al abrir
+    setTimeout(() => {
+        if (!userLocation && !isManualLocation) {
+            getWhatsappLocation();
+        }
+    }, 500);
+    
+    // Enfocar el campo de nombre
+    setTimeout(() => {
+        whatsappName.focus();
+    }, 300);
 });
