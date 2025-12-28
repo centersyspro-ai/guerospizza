@@ -434,7 +434,7 @@ if (orderHeroBtn) {
         document.body.style.overflow = 'hidden';
         
         // Limpiar el mensaje anterior y poner un mensaje genérico
-        whatsappMessage.value = "¡Hola! Me gustaría hacer un pedido de pizza. Por favor, ayúdenme con las opciones disponibles.";
+        // whatsappMessage.value = "¡Hola! Me gustaría hacer un pedido de pizza. Por favor, ayúdenme con las opciones disponibles.";
         
         // Actualizar contador de caracteres
         charCount.textContent = whatsappMessage.value.length;
