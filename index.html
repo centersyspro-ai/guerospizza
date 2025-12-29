@@ -494,56 +494,115 @@
     </div>
 </div>
 
-
 <!-- Popup de advertencia a los 10 segundos -->
-<div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-warning">
-                <h5 class="modal-title" id="warningModalLabel">
-                    <i class="fas fa-info-circle me-2"></i>AVISO IMPORTANTE
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+<div class="modal" id="warningModal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true">
+    <div class="modal-content warning-modal-content">
+        <div class="warning-modal-header">
+            <h5 class="warning-modal-title">
+                <i class="fas fa-info-circle me-2"></i>AVISO IMPORTANTE
+            </h5>
+            <button type="button" class="warning-close-modal" aria-label="Cerrar">&times;</button>
+        </div>
+        <div class="warning-modal-body">
+            <div class="text-center mb-3">
+                <i class="fas fa-exclamation-triangle fa-3x warning-icon mb-3"></i>
+                <h4 class="mb-3">¡Atención!</h4>
             </div>
-            <div class="modal-body">
-                <div class="text-center mb-3">
-                    <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
-                    <h4 class="mb-3">¡Atención!</h4>
-                </div>
-                <p class="lead text-center mb-4">
-                    Esta página es <strong>DE MUESTRA</strong>.
+            <p class="lead text-center mb-4">
+                Esta página es <strong>DE MUESTRA</strong>.
+            </p>
+            <div class="warning-alert warning-alert-info">
+                <p class="mb-0">
+                    <i class="fas fa-check-circle me-2"></i>
+                    Siéntete libre de hacer pruebas con todos los formularios y funcionalidades.
                 </p>
-                <div class="alert alert-info">
-                    <p class="mb-0">
-                        <i class="fas fa-check-circle me-2"></i>
-                        Siéntete libre de hacer pruebas con todos los formularios y funcionalidades.
-                    </p>
-                </div>
-                <div class="alert alert-warning">
-                    <p class="mb-0">
-                        <i class="fas fa-phone-alt me-2"></i>
-                        <strong>Todos los mensajes de prueba serán enviados al teléfono:</strong><br>
-                        <span class="d-block text-center fs-5 mt-2">
-                            <i class="fab fa-whatsapp text-success me-1"></i>
-                            <strong>442 712 8200</strong>
-                        </span>
-                    </p>
-                </div>
-                <div class="text-center text-muted small mt-4">
-                    <i class="fas fa-clock me-1"></i>
-                    Este mensaje se mostrará automáticamente en 10 segundos
-                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">
-                    <i class="fas fa-check me-2"></i>Entendido, comenzar pruebas
-                </button>
+            <div class="warning-alert warning-alert-warning">
+                <p class="mb-0">
+                    <i class="fas fa-phone-alt me-2"></i>
+                    <strong>Todos los mensajes de prueba serán enviados al teléfono:</strong><br>
+                    <span class="d-block text-center fs-5 mt-2">
+                        <i class="fab fa-whatsapp whatsapp-color me-1"></i>
+                        <strong>442 712 8200</strong>
+                    </span>
+                </p>
             </div>
+            <div class="text-center text-muted small mt-4">
+                <i class="fas fa-clock me-1"></i>
+                Este mensaje se mostrará automáticamente en 10 segundos
+            </div>
+        </div>
+        <div class="warning-modal-footer">
+            <button type="button" class="btn warning-modal-btn" id="warningModalCloseBtn">
+                <i class="fas fa-check me-2"></i>Entendido, comenzar pruebas
+            </button>
         </div>
     </div>
 </div>
 
 
  <script src="assets/js/main.js"></script>
+ 
+ <!-- Script para el popup de advertencia -->
+<script>
+    // Popup de advertencia después de 10 segundos
+    document.addEventListener('DOMContentLoaded', function() {
+        // Esperar 10 segundos antes de mostrar el modal
+        setTimeout(function() {
+            const warningModal = document.getElementById('warningModal');
+            const closeBtn = document.getElementById('warningModalCloseBtn');
+            const warningCloseModal = document.querySelector('.warning-close-modal');
+            
+            if (warningModal) {
+                // Mostrar el modal
+                warningModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                
+                // Configurar el cierre del modal
+                function closeWarningModal() {
+                    warningModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    // Opcional: Guardar en localStorage que ya se mostró
+                    localStorage.setItem('warningModalShown', 'true');
+                }
+                
+                // Evento para el botón de cerrar
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeWarningModal);
+                }
+                
+                // Evento para el botón X
+                if (warningCloseModal) {
+                    warningCloseModal.addEventListener('click', closeWarningModal);
+                }
+                
+                // Cerrar al hacer clic fuera del modal
+                warningModal.addEventListener('click', function(event) {
+                    if (event.target === warningModal) {
+                        closeWarningModal();
+                    }
+                });
+                
+                // Cerrar con tecla ESC
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Escape' && warningModal.style.display === 'block') {
+                        closeWarningModal();
+                    }
+                });
+            }
+            
+        }, 10000); // 10 segundos = 10000 milisegundos
+        
+        // Opcional: Si el usuario ya cerró el modal en esta sesión, no mostrarlo de nuevo
+        // Puedes descomentar este código si quieres que solo aparezca una vez por sesión
+        /*
+        if (!localStorage.getItem('warningModalShown')) {
+            setTimeout(function() {
+                // ... el mismo código de arriba ...
+            }, 10000);
+        }
+        */
+    });
+</script>
 </body>
 </html>

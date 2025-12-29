@@ -1,4 +1,52 @@
- 
+// Popup de advertencia a los 10 segundos
+document.addEventListener('DOMContentLoaded', function() {
+    // Esperar 10 segundos antes de mostrar el modal
+    setTimeout(function() {
+        const warningModal = document.getElementById('warningModal');
+        const closeBtn = document.getElementById('warningModalCloseBtn');
+        const warningCloseModal = document.querySelector('.warning-close-modal');
+        
+        if (warningModal) {
+            // Mostrar el modal
+            warningModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Configurar el cierre del modal
+            function closeWarningModal() {
+                warningModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                // Opcional: Guardar en localStorage que ya se mostró
+                localStorage.setItem('warningModalShown', 'true');
+            }
+            
+            // Evento para el botón de cerrar
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeWarningModal);
+            }
+            
+            // Evento para el botón X
+            if (warningCloseModal) {
+                warningCloseModal.addEventListener('click', closeWarningModal);
+            }
+            
+            // Cerrar al hacer clic fuera del modal
+            warningModal.addEventListener('click', function(event) {
+                if (event.target === warningModal) {
+                    closeWarningModal();
+                }
+            });
+            
+            // Cerrar con tecla ESC
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && warningModal.style.display === 'block') {
+                    closeWarningModal();
+                }
+            });
+        }
+        
+    }, 10000); // 10 segundos = 10000 milisegundos
+});
+
 // WhatsApp Modal Mejorado
 document.addEventListener('DOMContentLoaded', function() {
     // Elementos del modal WhatsApp
@@ -542,40 +590,3 @@ whatsappModalBtn.addEventListener('click', function() {
         whatsappName.focus();
     }, 300);
 });
-
-
-    // Popup de advertencia después de 10 segundos
-    document.addEventListener('DOMContentLoaded', function() {
-        // Esperar 10 segundos antes de mostrar el modal
-        setTimeout(function() {
-            const warningModal = new bootstrap.Modal(document.getElementById('warningModal'));
-            
-            // Configurar el modal para que no se pueda cerrar haciendo clic fuera
-            const modalElement = document.getElementById('warningModal');
-            modalElement.addEventListener('hide.bs.modal', function(event) {
-                // Permitir cerrar solo con el botón
-                return true;
-            });
-            
-            // Mostrar el modal
-            warningModal.show();
-            
-            // Opcional: Guardar en localStorage que ya se mostró (si quieres que no aparezca de nuevo)
-            localStorage.setItem('warningModalShown', 'true');
-            
-        }, 10000); // 10 segundos = 10000 milisegundos
-    });
-
-    // Opcional: Si el usuario ya cerró el modal en esta sesión, no mostrarlo de nuevo
-    // Puedes descomentar este código si quieres que solo aparezca una vez por sesión
-    /*
-    document.addEventListener('DOMContentLoaded', function() {
-        if (!localStorage.getItem('warningModalShown')) {
-            setTimeout(function() {
-                const warningModal = new bootstrap.Modal(document.getElementById('warningModal'));
-                warningModal.show();
-                localStorage.setItem('warningModalShown', 'true');
-            }, 10000);
-        }
-    });
-    */
