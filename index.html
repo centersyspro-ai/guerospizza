@@ -495,6 +495,55 @@
 </div>
 
 
+<!-- Popup de advertencia a los 10 segundos -->
+<div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h5 class="modal-title" id="warningModalLabel">
+                    <i class="fas fa-info-circle me-2"></i>AVISO IMPORTANTE
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-3">
+                    <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                    <h4 class="mb-3">¡Atención!</h4>
+                </div>
+                <p class="lead text-center mb-4">
+                    Esta página es <strong>DE MUESTRA</strong>.
+                </p>
+                <div class="alert alert-info">
+                    <p class="mb-0">
+                        <i class="fas fa-check-circle me-2"></i>
+                        Siéntete libre de hacer pruebas con todos los formularios y funcionalidades.
+                    </p>
+                </div>
+                <div class="alert alert-warning">
+                    <p class="mb-0">
+                        <i class="fas fa-phone-alt me-2"></i>
+                        <strong>Todos los mensajes de prueba serán enviados al teléfono:</strong><br>
+                        <span class="d-block text-center fs-5 mt-2">
+                            <i class="fab fa-whatsapp text-success me-1"></i>
+                            <strong>442 712 8200</strong>
+                        </span>
+                    </p>
+                </div>
+                <div class="text-center text-muted small mt-4">
+                    <i class="fas fa-clock me-1"></i>
+                    Este mensaje se mostrará automáticamente en 10 segundos
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">
+                    <i class="fas fa-check me-2"></i>Entendido, comenzar pruebas
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
  <script src="assets/js/main.js"></script>
 </body>
 </html>

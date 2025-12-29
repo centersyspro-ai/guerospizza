@@ -1379,3 +1379,35 @@ textarea.whatsapp-form-control {
     background-color: #e64a19;
     transform: translateY(-3px);
 }
+
+
+/* Estilos para el popup de advertencia */
+#warningModal .modal-content {
+    border: 3px solid #ffc107;
+    border-radius: 10px;
+}
+
+#warningModal .modal-header {
+    border-bottom: 2px solid #ffc107;
+}
+
+#warningModal .modal-footer {
+    border-top: 1px solid #dee2e6;
+}
+
+#warningModal .alert-info {
+    background-color: #e7f3ff;
+    border-left: 4px solid #0d6efd;
+}
+
+#warningModal .alert-warning {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+}
+
+#warningModal .lead {
+    font-weight: 600;
+    color: #333;
+}
+
+

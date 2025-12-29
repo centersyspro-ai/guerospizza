@@ -465,10 +465,10 @@ orderPizzaBtns.forEach(btn => {
         document.body.style.overflow = 'hidden';
         
         // Preparar mensaje con la pizza seleccionada
-        let orderMessage = `Quiero ordenar:\n`;
-        orderMessage += `🍕 ${pizzaName} - $${pizzaPrice}\n`;
-        orderMessage += `Descripción: ${pizzaDesc}\n\n`;
-        orderMessage += `Por favor, díganme el tiempo de entrega y el costo de envío.`;
+        //let orderMessage = `Quiero ordenar:\n`;
+        //orderMessage += `🍕 ${pizzaName} - $${pizzaPrice}\n`;
+        //orderMessage += `Descripción: ${pizzaDesc}\n\n`;
+        //orderMessage += `Por favor, díganme el tiempo de entrega y el costo de envío.`;
         
         whatsappMessage.value = orderMessage;
         charCount.textContent = orderMessage.length;
@@ -499,10 +499,10 @@ if (specialPizzaBtn) {
         document.body.style.overflow = 'hidden';
         
         // Preparar mensaje con la especialidad
-        let orderMessage = `¡Quiero ordenar la ESPECIALIDAD DE LA CASA! 🍕\n\n`;
-        orderMessage += `🔸 ${pizzaName} - $${pizzaPrice}\n`;
-        orderMessage += `🔸 ${pizzaDesc}\n\n`;
-        orderMessage += `¿Cuál es el tiempo de preparación y entrega para esta especialidad?`;
+        //let orderMessage = `¡Quiero ordenar la ESPECIALIDAD DE LA CASA! 🍕\n\n`;
+        //orderMessage += `🔸 ${pizzaName} - $${pizzaPrice}\n`;
+        //orderMessage += `🔸 ${pizzaDesc}\n\n`;
+        //orderMessage += `¿Cuál es el tiempo de preparación y entrega para esta especialidad?`;
         
         whatsappMessage.value = orderMessage;
         charCount.textContent = orderMessage.length;
@@ -542,3 +542,40 @@ whatsappModalBtn.addEventListener('click', function() {
         whatsappName.focus();
     }, 300);
 });
+
+
+    // Popup de advertencia después de 10 segundos
+    document.addEventListener('DOMContentLoaded', function() {
+        // Esperar 10 segundos antes de mostrar el modal
+        setTimeout(function() {
+            const warningModal = new bootstrap.Modal(document.getElementById('warningModal'));
+            
+            // Configurar el modal para que no se pueda cerrar haciendo clic fuera
+            const modalElement = document.getElementById('warningModal');
+            modalElement.addEventListener('hide.bs.modal', function(event) {
+                // Permitir cerrar solo con el botón
+                return true;
+            });
+            
+            // Mostrar el modal
+            warningModal.show();
+            
+            // Opcional: Guardar en localStorage que ya se mostró (si quieres que no aparezca de nuevo)
+            localStorage.setItem('warningModalShown', 'true');
+            
+        }, 10000); // 10 segundos = 10000 milisegundos
+    });
+
+    // Opcional: Si el usuario ya cerró el modal en esta sesión, no mostrarlo de nuevo
+    // Puedes descomentar este código si quieres que solo aparezca una vez por sesión
+    /*
+    document.addEventListener('DOMContentLoaded', function() {
+        if (!localStorage.getItem('warningModalShown')) {
+            setTimeout(function() {
+                const warningModal = new bootstrap.Modal(document.getElementById('warningModal'));
+                warningModal.show();
+                localStorage.setItem('warningModalShown', 'true');
+            }, 10000);
+        }
+    });
+    */
